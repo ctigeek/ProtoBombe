@@ -41,6 +41,7 @@ namespace BombeProto1
             {
                 CurrentKeys[wheelNum]++;
             }
+            SetAllWheelPositions();
         }
 
         private bool CheckBusesAllSignaled()
@@ -63,28 +64,24 @@ namespace BombeProto1
 
         public bool Run(char[] startingPositions)
         {
-            int matches = 0;
-            SetAllWheelPositions(startingPositions);
-
-            while (!startingPositions.SequenceEqual(CurrentKeys))
+            //int matches = 0;
+            CurrentKeys = startingPositions;
+            SetAllWheelPositions();
+            do
             {
-                if (RunCheck())
-                {
-                    return true;
-                }
+                if (RunCheck()) return true;
                 IncrementWheels(CurrentKeys.Length - 1);
-            }
-            
+            } while (!startingPositions.SequenceEqual(CurrentKeys));
+
             return false;
         }
 
-        private void SetAllWheelPositions(char[] newPositions)
+        private void SetAllWheelPositions()
         {
             foreach (var enigma in Enigmas)
             {
-                enigma.SetWheelPositions(newPositions);
+                enigma.SetRotorsBasedOnBombeKey(CurrentKeys);
             }
-            CurrentKeys = newPositions;
         }
 
         //private bool ComputeAndCheck(char c)

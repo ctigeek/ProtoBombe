@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace BombeProto1
 {
@@ -52,6 +53,14 @@ namespace BombeProto1
             if (c < 'A' || c > 'Z') throw new ArgumentException();
             var response = base.Encode(c);
             return response;
+        }
+
+        public void SetRotorsBasedOnBombeKey(char[] bombeKey)
+        {
+            var positions = bombeKey.Select(c => (int) c - 64).ToArray();
+            positions[positions.Length - 1] += StepsAheadOfKey;
+            if (positions[positions.Length - 1] > 26) positions[positions.Length - 1] -= 26;
+            base.SetWheelPositions(positions);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace BombeProto1
 {
@@ -7,7 +8,11 @@ namespace BombeProto1
         public readonly Wheel[] Wheels; //in order left to right.
         public readonly Wheel RightWheel;
         protected readonly Reflector Reflector;
-        public char[] CurrentSetting { get; private set; }
+
+        public char[] CurrentSetting
+        {
+            get { return Wheels.Select(w => Convert.ToChar(w.Position + 64)).ToArray(); }
+        }
 
         public Enigma(WheelType[] wheelTypes, ReflectorType reflectorType)
         {
@@ -48,11 +53,15 @@ namespace BombeProto1
 
         public void SetWheelPositions(char[] positions)
         {
+            SetWheelPositions(positions.Select(p=>(int)p-64).ToArray());
+        }
+
+        public void SetWheelPositions(int[] positions)
+        {
             if (positions.Length != Wheels.Length) throw new ArgumentException();
-            CurrentSetting = positions; 
             for (int i = 0; i < positions.Length; i++)
             {
-                Wheels[i].Position = (int) positions[i] - 64;
+                Wheels[i].Position = positions[i];
             }
         }
     }

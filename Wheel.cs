@@ -16,7 +16,7 @@ namespace BombeProto1
         private int[] Notches { get; set; }
         private int[] Mapping { get; set; }
         private int[] ReverseMapping { get; set; }
-        private bool[] Signaled { get; set; }
+        //private bool[] Signaled { get; set; }
         public int Position { get; set; }
         public bool EnableNotch { get; set; }
         public Action<int> SignalOutRight { get; set; }
@@ -26,7 +26,7 @@ namespace BombeProto1
         protected Wheel(WheelType wheelType, int[] map, int[] notches)
         {
             this.WheelType = wheelType;
-            Signaled = new bool[26];
+          //  Signaled = new bool[26];
             EnableNotch = true;
             if (map.Length != 26) throw new ArgumentException();
             Mapping = map;
@@ -38,7 +38,7 @@ namespace BombeProto1
                 if (reverseNum < 0 || reverseNum > 25 ) throw new InvalidOperationException();
                 ReverseMapping[reverseNum] = -map[i];
             }
-            ResetAllSignals();
+            //ResetAllSignals();
         }
 
         public void Rotate()
@@ -51,18 +51,18 @@ namespace BombeProto1
             }
         }
 
-        public void ResetAllSignals()
-        {
-            for (int i = 0; i < Signaled.Length; i++) Signaled[i] = false;
-        }
+        //public void ResetAllSignals()
+        //{
+        //    for (int i = 0; i < Signaled.Length; i++) Signaled[i] = false;
+        //}
 
         public void SignalRightSide(int number)
         {
             var adjustedNumber = number + (Position - 1);
             if (adjustedNumber > 26) adjustedNumber -= 26;
-            if (!Signaled[adjustedNumber])
-            {
-                Signaled[adjustedNumber] = true;
+            //if (!Signaled[adjustedNumber])
+           // {
+              //  Signaled[adjustedNumber] = true;
                 if (SignalOutLeft != null)
                 {
                     var output = adjustedNumber + Mapping[adjustedNumber - 1];
@@ -71,7 +71,7 @@ namespace BombeProto1
                     if (output < 1) output += 26;
                     SignalOutLeft(output);
                 }
-            }
+            //}
         }
 
         public void SignalLeftSide(int number)
@@ -83,11 +83,11 @@ namespace BombeProto1
             if (input > 26) throw new InvalidOperationException();
             if (input < 1) input += 26;
 
-            if (!Signaled[input])
-            {
-                Signaled[input] = true;
+           // if (!Signaled[input])
+           // {
+              //  Signaled[input] = true;
                 if (SignalOutRight != null) SignalOutRight(input);
-            }
+            //}
         }
 
         public static Wheel CreateWheel(WheelType wheelType)

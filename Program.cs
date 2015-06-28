@@ -26,16 +26,16 @@ namespace BombeProto1
 
             var map13 = new MapEntry(13, 'A', 'S');
             var map7 = new MapEntry(7, 'S', 'V');
-            var map16 = new MapEntry(16, 'V', 'E');
+            var map16 = new MapEntry(16, 'E', 'V');
             var map2 = new MapEntry(2, 'E', 'N');
             var map11 = new MapEntry(11, 'E', 'U');
             var map5 = new MapEntry(5, 'E', 'G');
             var map15 = new MapEntry(15, 'G', 'L');
             var map6 = new MapEntry(6, 'G', 'R');
             var map12 = new MapEntry(12, 'G', 'R');
-            var map14 = new MapEntry(14, 'R', 'A');
+            var map14 = new MapEntry(14, 'A', 'R');
             var map9 = new MapEntry(9, 'R', 'Z');
-            var map10 = new MapEntry(10, 'Z', 'H');
+            var map10 = new MapEntry(10, 'H', 'Z');
 
             var mapping = new[] {map13, map7, map16, map2, map11, map5, map15, map6, map12, map14, map9, map10};
             var wheelTypes = new[] {WheelType.I, WheelType.II, WheelType.III};
