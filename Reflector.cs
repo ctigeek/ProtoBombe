@@ -41,6 +41,9 @@ namespace BombeProto1
         {
             if (reflectorType == ReflectorType.A) return new Reflector_A();
             if (reflectorType == ReflectorType.B) return new Reflector_B();
+            if (reflectorType == ReflectorType.C) return new Reflector_C();
+            if (reflectorType == ReflectorType.B_Thin) return new Reflector_B_Thin();
+            if (reflectorType == ReflectorType.C_Thin) return new Reflector_C_Thin();
             throw new ArgumentException();
         }
     }

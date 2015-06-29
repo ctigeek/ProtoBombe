@@ -86,6 +86,13 @@ namespace BombeProto1
             if (wheelType == WheelType.I) return new Wheel_I();
             if (wheelType == WheelType.II) return new Wheel_II();
             if (wheelType == WheelType.III) return new Wheel_III();
+            if (wheelType == WheelType.IV) return new Wheel_IV();
+            if (wheelType == WheelType.V) return new Wheel_V();
+            if (wheelType == WheelType.VI) return new Wheel_VI();
+            if (wheelType == WheelType.VII) return new Wheel_VII();
+            if (wheelType == WheelType.VIII) return new Wheel_VIII();
+            if (wheelType == WheelType.Beta) return new Wheel_Beta();
+            if (wheelType == WheelType.Gamma) return new Wheel_Gamma();
             throw new ArgumentException();
         }
     }
