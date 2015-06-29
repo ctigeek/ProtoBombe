@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace BombeProto1
 {
@@ -12,15 +11,19 @@ namespace BombeProto1
         public readonly List<BombeEnigma> Enigmas;  
         public readonly Dictionary<char, Bus> Buses;
         public char[] CurrentKeys { get; private set; }
+        private DiagonalBoard diagonalBoard;
 
         public Bombe(IEnumerable<MapEntry> mapping, char input, char entry, 
-                        WheelType[] wheelTypes, ReflectorType reflectorType)
+                        WheelType[] wheelTypes, ReflectorType reflectorType, bool enableDiagonalBoard)
         {
             this.input = input;
             this.entry = entry;
             Buses = new Dictionary<char, Bus>();
             for (char c = 'A'; c <= 'Z'; c++) Buses.Add(c, new Bus(c));
-
+            if (enableDiagonalBoard)
+            {
+                diagonalBoard = new DiagonalBoard(Buses);
+            }
             Enigmas = new List<BombeEnigma>();
 
             foreach (var map in mapping)

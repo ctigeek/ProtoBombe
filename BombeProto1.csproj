@@ -44,6 +44,7 @@
     <Compile Include="Bombe.cs" />
     <Compile Include="BombeEnigma.cs" />
     <Compile Include="Bus.cs" />
+    <Compile Include="DiagonalBoard.cs" />
     <Compile Include="Enigma.cs" />
     <Compile Include="MapEntry.cs" />
     <Compile Include="Program.cs" />
