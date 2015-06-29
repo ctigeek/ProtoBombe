@@ -38,7 +38,7 @@ namespace BombeProto1
             var map10 = new MapEntry(10, 'H', 'Z');
 
             var mapping = new[] {map13, map7, map16, map2, map11, map5, map15, map6, map12, map14, map9, map10};
-            var wheelTypes = new[] {WheelType.I, WheelType.II, WheelType.III};
+            var wheelTypes = new[] {WheelType.II, WheelType.V, WheelType.III};
             var bombe = new Bombe(mapping, 'G', 'A', wheelTypes, ReflectorType.B);
             var startingPosition = new[] {'Z', 'Z', 'A'};
             bombe.Run(startingPosition);

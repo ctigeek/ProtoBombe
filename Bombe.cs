@@ -65,6 +65,7 @@ namespace BombeProto1
 
         public bool Run(char[] startingPositions)
         {
+            var allMatches = new List<char[]>();
             Console.WriteLine("Starting run with wheel positions: {0} {1} {2}", startingPositions[0], startingPositions[1], startingPositions[2]);
             CurrentKeys = new char[startingPositions.Length];
             startingPositions.CopyTo(CurrentKeys, 0);
@@ -77,9 +78,14 @@ namespace BombeProto1
                 {
                     Console.WriteLine("************************************** Match!!!");
                     matches++;
+                    var copy = new char[CurrentKeys.Length];
+                    CurrentKeys.CopyTo(copy, 0);
+                    allMatches.Add(copy);
                 }
                 IncrementWheels(CurrentKeys.Length - 1);
             } while (!DoesStartingPositionMatchCurrentPosition(startingPositions));
+            
+            foreach (var match in allMatches) Console.WriteLine("{0} {1} {2}", match[0], match[1], match[2]);
             Console.WriteLine("Found {0} matches.", matches);
             return false;
         }
