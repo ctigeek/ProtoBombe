@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace BombeProto1
 {
@@ -64,15 +65,31 @@ namespace BombeProto1
 
         public bool Run(char[] startingPositions)
         {
-            //int matches = 0;
-            CurrentKeys = startingPositions;
+            Console.WriteLine("Starting run with wheel positions: {0} {1} {2}", startingPositions[0], startingPositions[1], startingPositions[2]);
+            CurrentKeys = new char[startingPositions.Length];
+            startingPositions.CopyTo(CurrentKeys, 0);
             SetAllWheelPositions();
+            int matches = 0;
             do
             {
-                if (RunCheck()) return true;
+                Console.WriteLine("Checking position {0} {1} {2}", CurrentKeys[0], CurrentKeys[1], CurrentKeys[2]);
+                if (RunCheck())
+                {
+                    Console.WriteLine("************************************** Match!!!");
+                    matches++;
+                }
                 IncrementWheels(CurrentKeys.Length - 1);
-            } while (!startingPositions.SequenceEqual(CurrentKeys));
+            } while (!DoesStartingPositionMatchCurrentPosition(startingPositions));
+            Console.WriteLine("Found {0} matches.", matches);
+            return false;
+        }
 
+        private bool DoesStartingPositionMatchCurrentPosition(char[] startingPositions)
+        {
+            if (startingPositions.SequenceEqual(CurrentKeys))
+            {
+                return true;
+            }
             return false;
         }
 
