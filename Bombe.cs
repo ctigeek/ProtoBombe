@@ -12,6 +12,15 @@ namespace BombeProto1
         public readonly Dictionary<char, Bus> Buses;
         public char[] CurrentKeys { get; private set; }
         private DiagonalBoard diagonalBoard;
+        public bool DiagonalBoardEnabled
+        {
+            get { return diagonalBoard != null; }
+        }
+
+        public Bombe(MapConfiguration mapConfiguration)
+            : this(mapConfiguration.MapEntries, mapConfiguration.InputLetter, mapConfiguration.CurrentEntry, mapConfiguration.WheelTypes, mapConfiguration.ReflectorType, mapConfiguration.EnableDiagonalBoard)
+        {
+        }
 
         public Bombe(IEnumerable<MapEntry> mapping, char input, char entry, 
                         WheelType[] wheelTypes, ReflectorType reflectorType, bool enableDiagonalBoard)
@@ -109,86 +118,5 @@ namespace BombeProto1
                 enigma.SetRotorsBasedOnBombeKey(CurrentKeys);
             }
         }
-
-        //private bool ComputeAndCheck(char c)
-        //{
-        //    //first reset all the enigmas
-        //    foreach (var enigma in Enigmas)
-        //    {
-        //        enigma.computed = false;
-        //        enigma.HasBeenChecked = false;
-        //    }
-        //    var starting = Enigmas.First(e => e.StartingEnigma);
-        //    starting.Compute(c);
-
-        //    //Now check everything for consistency....
-        //    //1. make sure input of each matches output of next....
-        //    if (!InputMatchesOutputAdInfinitum(starting)) return false;
-
-        //    //2. make sure each letter only appears once, except where it's allowed.
-        //    foreach (var enigma in Enigmas) enigma.HasBeenChecked = false;
-        //    var letterCount = new Dictionary<char, int>();
-        //    CountOutputLetters(starting, letterCount);
-
-        //    foreach (var letter in letterCount.Where(lc => lc.Value > 1))
-        //    {
-        //        var enigmaCounts = Enigmas.Where(e => e.outputLetter == letter.Key).ToArray();
-        //        //if the number of enigmas with that output letter != the number of times that output letter was found....
-        //        if (enigmaCounts.Length != letter.Value) return false;
-        //        //if the number of enigmas with that output letter != the number of others that are suppose to have that same output letter.....
-        //        if (enigmaCounts.Select(e => e.SameOutputLetters.Length).Any(len => len + 1 != enigmaCounts.Length)) return false;
-
-        //        if (enigmaCounts.Any(enigma => !enigma.SameOutputLetters.All(enigmaCounts.Contains)))
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
-
-        //private bool InputMatchesOutputAdInfinitum(BombeEnigma enigma)
-        //{
-        //    if (!enigma.HasBeenChecked)
-        //    {
-        //        enigma.HasBeenChecked = true;
-        //        if (enigma.OutputConnections.Select(e => e.inputLetter).Any(c => c != enigma.outputLetter)) return false;
-
-        //        foreach (var e in enigma.OutputConnections)
-        //        {
-        //            if (!InputMatchesOutputAdInfinitum(e)) return false;
-        //        }
-        //    }
-        //    return true;
-        //}
-
-        //private void CountOutputLetters(BombeEnigma enigma,Dictionary<char, int> letterCount)
-        //{
-        //    foreach (var outputConnection in enigma.OutputConnections)
-        //    {
-        //        if (!outputConnection.HasBeenChecked)
-        //        {
-        //            outputConnection.HasBeenChecked = true;
-        //            if (letterCount.ContainsKey(outputConnection.outputLetter))
-        //            {
-        //                letterCount[outputConnection.outputLetter]++;
-        //            }
-        //            else
-        //            {
-        //                letterCount.Add(outputConnection.outputLetter, 1);
-        //            }
-        //            CountOutputLetters(outputConnection, letterCount);
-        //        }
-        //    }
-        //}
-
-        //private char EncodeWithAllEnigmas(char c)
-        //{
-        //    var output = c;
-        //    foreach (var enigma in Enigmas)
-        //    {
-        //        output = enigma.Encode(output);
-        //    }
-        //    return output;
-        //}
     }
 }

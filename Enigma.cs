@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 
 namespace BombeProto1
@@ -39,6 +40,7 @@ namespace BombeProto1
             RightWheel.SignalOutRight = i =>
             {
                 returnChar = Convert.ToChar(i + 64);
+                if (returnChar <'A' || returnChar > 'Z') throw new InvalidDataException();
             };
             RightWheel.SignalRightSide(p - 64);
             return returnChar;

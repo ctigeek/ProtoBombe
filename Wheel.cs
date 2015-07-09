@@ -58,13 +58,13 @@ namespace BombeProto1
         public void SignalRightSide(int number)
         {
             var adjustedNumber = number + (Position - 1);
-            if (adjustedNumber > 26) adjustedNumber -= 26;
+            while (adjustedNumber > 26) adjustedNumber -= 26;
             if (SignalOutLeft != null)
             {
                 var output = adjustedNumber + Mapping[adjustedNumber - 1];
                 output -= (Position - 1);
                 if (output > 26) throw new InvalidOperationException(); //I don't think this will ever happen but I want to know if it does.
-                if (output < 1) output += 26;
+                while (output < 1) output += 26;
                 SignalOutLeft(output);
             }
         }
@@ -72,11 +72,11 @@ namespace BombeProto1
         public void SignalLeftSide(int number)
         {
             var adjustedNumber = number + (Position - 1);
-            if (adjustedNumber > 26) adjustedNumber -= 26;
+            while (adjustedNumber > 26) adjustedNumber -= 26;
             var input = adjustedNumber + ReverseMapping[adjustedNumber - 1];
             input -= (Position - 1);
             if (input > 26) throw new InvalidOperationException();
-            if (input < 1) input += 26;
+            while (input < 1) input += 26;
 
             if (SignalOutRight != null) SignalOutRight(input);
         }
