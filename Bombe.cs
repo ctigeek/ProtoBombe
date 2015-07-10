@@ -89,10 +89,11 @@ namespace BombeProto1
                 if (RunCheck())
                 {
                     Console.WriteLine("************************************** Match!!!");
-                    Console.WriteLine("{0} {1} {2}", CurrentKeys[0], CurrentKeys[1], CurrentKeys[2]);
+                    Console.WriteLine("Wheel settings: {0} {1} {2}", CurrentKeys[0], CurrentKeys[1], CurrentKeys[2]);
+                    Console.WriteLine(" Potential plug board settings:");
                     foreach (var bus in Buses.Values.Where(b=>b.EnigmaConnected))
                     {
-                        Console.WriteLine("{0}:  {1}",bus.Letter, bus.ShowUnsignaledCharacters());
+                        Console.WriteLine("{0}:  {1}",bus.Letter, bus.ListPotentialPlugboardCharacters());
                     }
                     matches++;
                     var copy = new char[CurrentKeys.Length];
@@ -102,7 +103,7 @@ namespace BombeProto1
                 IncrementWheels(CurrentKeys.Length - 1);
             } while (!DoesStartingPositionMatchCurrentPosition(startingPositions));
             
-            foreach (var match in allMatches) Console.WriteLine("{0} {1} {2}", match[0], match[1], match[2]);
+            //foreach (var match in allMatches) Console.WriteLine("{0} {1} {2}", match[0], match[1], match[2]);
             Console.WriteLine("Found {0} matches.", matches);
             return false;
         }

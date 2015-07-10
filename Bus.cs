@@ -53,9 +53,16 @@ namespace BombeProto1
             }
         }
 
-        public string ShowUnsignaledCharacters()
+        public string ListPotentialPlugboardCharacters()
         {
-            return string.Join(",", Signaled.Where(s => !s.Value).Select(s => s.Key));
+            if (Signaled.Count(s => s.Value) > 1)
+            {
+                return string.Join(",", Signaled.Where(s => !s.Value).Select(s => s.Key));
+            }
+            else
+            {
+                return string.Join(",", Signaled.Where(s => s.Value).Select(s => s.Key));
+            }
         }
     }
 }
