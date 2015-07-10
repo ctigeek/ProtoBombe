@@ -31,7 +31,7 @@ namespace BombeProto1
             for (char c = 'A'; c <= 'Z'; c++) Buses.Add(c, new Bus(c));
             if (enableDiagonalBoard)
             {
-                diagonalBoard = new DiagonalBoard(Buses);
+                diagonalBoard = new DiagonalBoard(Buses);  //yes, hackey....
             }
             Enigmas = new List<BombeEnigma>();
 
@@ -59,7 +59,7 @@ namespace BombeProto1
 
         private bool CheckBusesAllSignaled()
         {
-            return Buses.Values.Where(b => b.IsConnected).Any(bus => bus.AllSignaled);
+            return Buses.Values.Where(b => b.EnigmaConnected).Any(bus => bus.AllSignaled);
         }
 
         private bool RunCheck()
@@ -85,10 +85,15 @@ namespace BombeProto1
             int matches = 0;
             do
             {
-                Console.WriteLine("Checking position {0} {1} {2}", CurrentKeys[0], CurrentKeys[1], CurrentKeys[2]);
+                //Console.WriteLine("Checking position {0} {1} {2}", CurrentKeys[0], CurrentKeys[1], CurrentKeys[2]);
                 if (RunCheck())
                 {
                     Console.WriteLine("************************************** Match!!!");
+                    Console.WriteLine("{0} {1} {2}", CurrentKeys[0], CurrentKeys[1], CurrentKeys[2]);
+                    foreach (var bus in Buses.Values.Where(b=>b.EnigmaConnected))
+                    {
+                        Console.WriteLine("{0}:  {1}",bus.Letter, bus.ShowUnsignaledCharacters());
+                    }
                     matches++;
                     var copy = new char[CurrentKeys.Length];
                     CurrentKeys.CopyTo(copy, 0);

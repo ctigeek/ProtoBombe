@@ -9,11 +9,7 @@ namespace BombeProto1
         public readonly char Letter;
         public readonly Dictionary<char, bool> Signaled;
         public event EventHandler<char> SignalEvent;
-
-        public bool IsConnected
-        {
-            get { return SignalEvent != null; }
-        }
+        public bool EnigmaConnected { get; set; }
 
         public bool AllSignaled
         {
@@ -55,6 +51,11 @@ namespace BombeProto1
             {
                 handler(this, c);
             }
+        }
+
+        public string ShowUnsignaledCharacters()
+        {
+            return string.Join(",", Signaled.Where(s => !s.Value).Select(s => s.Key));
         }
     }
 }

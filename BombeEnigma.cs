@@ -19,8 +19,10 @@ namespace BombeProto1
                 wheel.EnableNotch = false;
             }
             this.LeftBus = leftBus;
+            LeftBus.EnigmaConnected = true;
             LeftBus.SignalEvent += LeftBus_SignalEvent;
             this.RightBus = rightBus;
+            RightBus.EnigmaConnected = true;
             RightBus.SignalEvent += RightBus_SignalEvent;
         }
 
