@@ -10,7 +10,10 @@ namespace BombeProto1
     {
         static void Main(string[] args)
         {
-            //args = new[] {"Z", "Z", "Z"};
+            if (args.Length == 0)
+            {
+                args = new[] {"Z", "Z", "Z"};
+            }
             try
             {
                 var mapConfigFile = ConfigurationManager.AppSettings["mapConfigFile"];
